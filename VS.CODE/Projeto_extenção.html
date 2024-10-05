@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparador de Cloud Computing e Cloud Tech News</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Estilos Gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #34495e;
+      background-color: #ecf0f1;
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #3498db;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      background-color: #2c3e50;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    /* Seção Home */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .article-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-5px);
+    }
+    .article-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .article-content {
+      padding: 20px;
+    }
+    .article-title {
+      font-size: 1.2rem;
+      margin-top: 0;
+    }
+    .article-excerpt {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .read-more {
+      display: inline-block;
+      margin-top: 10px;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #2c3e50;
+      color: white;
+      margin-top: 40px;
+    }
+    /* Comparador de Cloud */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    form label {
+      margin-top: 10px;
+    }
+    form input, form button {
+      padding: 10px;
+      margin-top: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu de Navegação -->
+  <header>
+    <h1>Cloud Tech News</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a id="homeLink" href="#">Home</a></li>
+      <li><a id="cloudLink" href="#">Cloud</a></li>
+      <li><a id="usersLink" href="#">Usuários</a></li>
+    </ul>
+  </nav>
+
+  <!-- Seção Home -->
+  <div id="homeSection" class="container">
+    <section id="featured-article">
+      <h2>Artigo em Destaque</h2>
+      <div class="article-card">
+        <img src="/api/placeholder/800/400" alt="Cloud Computing" class="article-image">
+        <div class="article-content">
+          <h3 class="article-title">O Futuro do Cloud Computing em 2025</h3>
+          <p class="article-excerpt">Descubra as tendências emergentes que moldarão o panorama da computação em nuvem nos próximos anos.</p>
+          <a href="#" class="read-more">Leia mais</a>
+        </div>
+      </div>
+    </section>
+    <section id="latest-articles">
+      <h2>Últimos Artigos</h2>
+      <div class="article-grid" id="articleContainer">
+        <!-- Artigos inseridos via JS -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Seção Comparador de Cloud -->
+  <div id="cloudSection" class="container" style="display:none;">
+    <h1>Comparador de Tecnologias Cloud</h1>
+    <form id="cloudForm">
+      <label for="clientes">Número de Clientes:</label>
+      <input type="number" id="clientes" name="clientes" required>
+      <label for="receita">Receita Recorrente Mensal por Cliente (R$):</label>
+      <input type="number" id="receita" name="receita" required>
+      <button type="submit">Comparar</button>
+    </form>
+    <div id="resultado"></div>
+    <h2>Histórico de Comparações</h2>
+    <table id="comparisonTable">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Número de Clientes</th>
+          <th>Receita Total (R$)</th>
+          <th>Resultado</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados inseridos via JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Cloud Tech News. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    async function carregarArtigos() {
+        const response = await fetch('/api/obter-artigos');
+        const artigos = await response.json();
+
+        let container = document.getElementById('articleContainer');
+        container.innerHTML = '';
+
+        artigos.forEach(artigo => {
+            let articleElement = `
+                <div class="article-card">
+                    <h3 class="article-title">${artigo.titulo}</h3>
+                    <p class="article-excerpt">${artigo.resumo}</p>
+                    <a href="${artigo.link}" class="read-more">Leia mais</a>
+                </div>
+            `;
+            container.innerHTML += articleElement;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarArtigos);
+
+
+    // Função para exibir a seção correta
+    function showSection(sectionId) {
+      document.getElementById('homeSection').style.display = 'none';
+      document.getElementById('cloudSection').style.display = 'none';
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Eventos para os links do menu
+    document.getElementById("homeLink").addEventListener("click", function () {
+      showSection('homeSection');
+    });
+
+    document.getElementById("cloudLink").addEventListener("click", function () {
+      showSection('cloudSection');
+    });
+
+    // Mostrar página inicial
+    showSection('homeSection');
+
+    // Lista para armazenar comparações
+    let comparisons = [];
+
+    // Função de cálculo com base no fluxo de caixa total
+    function calcularComparacao(fluxoDeCaixa) {
+      if (fluxoDeCaixa > 5000000) {
+        return "AWS";
+      } else if (fluxoDeCaixa > 2000000) {
+        return "Azure";
+      } else if (fluxoDeCaixa > 1000000) {
+        return "Google Cloud";
+      } else if (fluxoDeCaixa > 500000) {
+        return "IBM Cloud";
+      } else if (fluxoDeCaixa > 300000) {
+        return "Oracle Cloud";
+      } else if (fluxoDeCaixa > 100000) {
+        return "Alibaba Cloud";
+      } else if (fluxoDeCaixa > 50000) {
+        return "DigitalOcean";
+      } else if (fluxoDeCaixa > 20000) {
+        return "Vultr";
+      } else {
+        return "Linode";
+      }
+    }
+
+    // Função que será executada quando o formulário for submetido
+    document.getElementById("cloudForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const clientes = document.getElementById('clientes').value;
+      const receita = document.getElementById('receita').value;
+      const fluxoDeCaixa = clientes * receita; // Fluxo de caixa total
+
+      const resultado = calcularComparacao(fluxoDeCaixa);
+
+      // Descrição personalizada para cada provedor
+      let descricao = '';
+      switch (resultado) {
+        case "AWS":
+          descricao = "A AWS é ideal para grandes empresas com alto número de clientes e fluxo de caixa elevado, devido à sua robustez e escalabilidade.";
+          break;
+        case "Azure":
+          descricao = "Azure é indicada para empresas de médio porte que precisam de integração com o ecossistema Microsoft.";
+          break;
+        case "Google Cloud":
+          descricao = "O Google Cloud oferece inovação em inteligência artificial e é excelente para empresas de tecnologia com crescimento rápido.";
+          break;
+        case "IBM Cloud":
+          descricao = "A IBM Cloud é recomendada para empresas que valorizam segurança e serviços híbridos com grandes volumes de dados.";
+          break;
+        case "Oracle Cloud":
+          descricao = "Oracle Cloud é ideal para negócios que utilizam bancos de dados Oracle e precisam de uma solução dedicada para ERP.";
+          break;
+        case "Alibaba Cloud":
+          descricao = "Alibaba Cloud é perfeito para empresas com foco no mercado asiático, oferecendo boas opções de custo-benefício.";
+          break;
+        case "DigitalOcean":
+          descricao = "DigitalOcean é voltada para pequenas startups que buscam simplicidade e soluções a preços acessíveis.";
+          break;
+        case "Vultr":
+          descricao = "Vultr oferece infraestrutura acessível para empresas menores, com flexibilidade e fácil implementação.";
+          break;
+        case "Linode":
+          descricao = "Linode é recomendada para desenvolvedores independentes ou pequenas empresas que buscam uma opção econômica e confiável.";
+          break;
+      }
+
+      // Mostrar o resultado
+      document.getElementById('resultado').innerText = resultado;
+
+      // Adiciona o resultado à tabela
+      const newRow = `
+        <tr>
+          <td>${new Date().toLocaleDateString()}</td>
+          <td>${clientes}</td>
+          <td>R$ ${fluxoDeCaixa}</td>
+          <td>${resultado}</td>
+          <td>${descricao}</td>
+        </tr>
+      `;
+      document.querySelector("#comparisonTable tbody").innerHTML += newRow;
+    });
+
+    // Artigos
+    const articles = [
+      { title: "Segurança em Cloud: Melhores Práticas", excerpt: "Proteja seus dados...", image: "/api/placeholder/400/300" },
+      { title: "Comparativo: AWS vs Azure vs Google Cloud", excerpt: "Principais diferenças...", image: "/api/placeholder/400/300" },
+      { title: "Serverless Computing", excerpt: "O futuro do desenvolvimento...", image: "/api/placeholder/400/300" }
+    ];
+
+    function renderArticles() {
+      const container = document.getElementById('articleContainer');
+      articles.forEach(article => {
+        const articleElement = `
+          <div class="article-card">
+            <img src="${article.image}" alt="${article.title}" class="article-image">
+            <div class="article-content">
+              <h3 class="article-title">${article.title}</h3>
+              <p class="article-excerpt">${article.excerpt}</p>
+              <a href="#" class="read-more">Leia mais</a>
+            </div>
+          </div>
+        `;
+        container.innerHTML += articleElement;
+      });
+    }
+
+    // Carrega os artigos ao carregar a página
+    document.addEventListener('DOMContentLoaded', renderArticles);
+  </script>
+</body>
+</html>
