@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparador de Cloud Computing e Cloud Tech News</title>
@@ -337,5 +338,560 @@
     // Carrega os artigos ao carregar a página
     document.addEventListener('DOMContentLoaded', renderArticles);
   </script>
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar.me - Recomendação Inteligente de Cloud</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+        }
+        .menu {
+            width: 250px;
+            background-color: #2c5282;
+            padding: 10px;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .menu-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .menu-header i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .menu-item {
+            text-align: left;
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .menu-item.active {
+            background-color: #1a365d;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .recommendation-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .provider-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .metric {
+            background-color: #f7fafc;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .metric-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .description {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ebf8ff;
+            border-radius: 4px;
+            color: #2c5282;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #3182ce;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            position: relative;
+            padding-top: 20px;
+        }
+        #performanceChart {
+            max-width: 100%;
+            height: 100%;
+        }
+        .info-icon {
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 14px;
+            color: #4299e1;
+            position: absolute;
+            top: 10px;
+            right: -20px;
+        }
+        .info-tooltip {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
+            width: 200px;
+            z-index: 10;
+        }
+        /* Estilos específicos da seção de Gerenciamento de Usuários */
+        .user-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            background-color: #c6f6d5;
+            color: #22543d;
+        }
+
+        #users .input-container {
+            flex-direction: row;
+            align-items: flex-end;
+        }
+
+        #users .input-container .input-group {
+            flex: 1;
+        }
+
+        #users button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <div class="menu-header">
+            <i class="fas fa-cloud"></i>
+            <span>Comparar.me</span>
+        </div>
+        <div class="menu-item active" data-content="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="menu-item" data-content="performance">
+            <i class="fas fa-chart-line"></i>
+            <span>Cloud Performance</span>
+        </div>
+        <div class="menu-item" data-content="users">
+            <i class="fas fa-users"></i>
+            <span>Usuários</span>
+        </div>
+    </div>
+
+    <!-- Conteúdo da Recomendação -->
+    <div id="home" class="content active">
+        <div class="container">
+            <h1>Recomendação Inteligente de Cloud</h1>
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="numClients">Número de Clientes:</label>
+                    <input type="number" id="numClients" value="100">
+                </div>
+                <div class="input-group">
+                    <label for="revenuePerClient">Receita por Cliente (R$):</label>
+                    <input type="number" id="revenuePerClient" value="1000">
+                </div>
+            </div>
+            <button onclick="generateRecommendation()">Gerar Recomendação</button>
+            <div id="recommendationCard" class="recommendation-card">
+                <div class="recommendation-header">
+                    <span class="provider-name" id="providerName"></span>
+                    <span id="confidenceScore"></span>
+                </div>
+                <div class="description" id="description"></div>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-label">Receita Mensal Estimada</div>
+                        <div class="metric-value" id="monthlyRevenue"></div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Receita Anual Estimada</div>
+                        <div class="metric-value" id="annualRevenue"></div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Custo Mensal Estimado</div>
+                        <div class="metric-value" id="monthlyCost"></div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Lucro Anual Estimado</div>
+                        <div class="metric-value" id="annualProfit"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo da Simulação de Performance -->
+    <div id="performance" class="content">
+        <div class="container">
+            <h1>Simulador de Performance Cloud</h1>
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="numClientsPerformance">Número de Clientes:</label>
+                    <input type="number" id="numClientsPerformance" placeholder="Insira o número de clientes">
+                </div>
+                <div class="input-group">
+                    <label for="numTransactions">Acessos Diários por Cliente:</label>
+                    <input type="number" id="numTransactions" placeholder="Número médio de acessos diários por cliente">
+                    <i class="fas fa-info-circle info-icon" onclick="toggleTooltip('transactionsTooltip')"></i>
+                    <div class="info-tooltip" id="transactionsTooltip">Número médio de acessos diários por cliente.</div>
+                </div>
+                <div class="input-group">
+                    <label for="avgSessionTime">Tempo Médio de Sessão (em minutos):</label>
+                    <input type="number" id="avgSessionTime" placeholder="Tempo médio de sessão">
+                </div>
+            </div>
+            <button onclick="generatePerformance()">Gerar Performance</button>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo do Gerenciamento de Usuários -->
+    <div id="users" class="content">
+        <div class="container">
+            <h1>Gerenciamento de Usuários</h1>
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="searchUser">Buscar Usuário:</label>
+                    <input type="text" id="searchUser" placeholder="Digite nome, email ou ID">
+                    <i class="fas fa-info-circle info-icon" onclick="toggleTooltip('searchTooltip')"></i>
+                    <div class="info-tooltip" id="searchTooltip">Busque por nome, email ou ID do usuário.</div>
+                </div>
+            </div>
+            <button onclick="searchUsers()">Buscar</button>
+            <button onclick="showAddUserForm()" style="background-color: #22c55e; margin-top: 10px;">Adicionar Novo Usuário</button>
+
+            <!-- Cards de Usuários -->
+            <div id="usersList">
+                <div class="recommendation-card" style="display: block; margin-bottom: 20px;">
+                    <div class="recommendation-header">
+                        <span class="provider-name">João Silva</span>
+                        <span class="user-status">Ativo</span>
+                    </div>
+                    <div class="description">Administrador do sistema com acesso total às funcionalidades.</div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Email</div>
+                            <div class="metric-value">joao.silva@email.com</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Função</div>
+                            <div class="metric-value">Administrador</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Último Acesso</div>
+                            <div class="metric-value">01/03/2024</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Status da Assinatura</div>
+                            <div class="metric-value">Premium</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button onclick="editUser(1)" style="margin-top: 0;">Editar</button>
+                        <button onclick="deleteUser(1)" style="background-color: #e53e3e; margin-top: 0;">Excluir</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card" style="display: block;">
+                    <div class="recommendation-header">
+                        <span class="provider-name">Maria Santos</span>
+                        <span class="user-status">Inativo</span>
+                    </div>
+                    <div class="description">Usuário regular com acesso às funcionalidades básicas do sistema.</div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Email</div>
+                            <div class="metric-value">maria.santos@email.com</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Função</div>
+                            <div class="metric-value">Usuário</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Último Acesso</div>
+                            <div class="metric-value">15/02/2024</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Status da Assinatura</div>
+                            <div class="metric-value">Básico</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button onclick="editUser(2)" style="margin-top: 0;">Editar</button>
+                        <button onclick="deleteUser(2)" style="background-color: #e53e3e; margin-top: 0;">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Lista com 12 provedores de cloud
+        const cloudProviders = [
+            { name: 'AWS', annualCost: 10000, capacity: { minClients: 50, maxClients: 1000 }, description: 'Amazon Web Services é uma plataforma de computação em nuvem abrangente.' },
+            { name: 'Google Cloud', annualCost: 12000, capacity: { minClients: 100, maxClients: 2000 }, description: 'Google Cloud Platform roda na mesma infraestrutura que o Google usa.' },
+            { name: 'Microsoft Azure', annualCost: 11000, capacity: { minClients: 100, maxClients: 1500 }, description: 'Microsoft Azure é uma plataforma de computação em nuvem.' },
+            { name: 'IBM Cloud', annualCost: 9500, capacity: { minClients: 50, maxClients: 800 }, description: 'IBM Cloud oferece soluções em IA e computação em nuvem.' },
+            { name: 'Oracle Cloud', annualCost: 10500, capacity: { minClients: 150, maxClients: 1800 }, description: 'Oracle Cloud é uma plataforma de nuvem com forte presença no mercado de bancos de dados.' },
+            { name: 'Alibaba Cloud', annualCost: 9500, capacity: { minClients: 200, maxClients: 2500 }, description: 'Alibaba Cloud é uma das maiores plataformas de computação em nuvem da Ásia.' },
+            { name: 'DigitalOcean', annualCost: 7000, capacity: { minClients: 10, maxClients: 300 }, description: 'DigitalOcean é ideal para startups e pequenos projetos com infraestrutura simples.' },
+            { name: 'Linode', annualCost: 6000, capacity: { minClients: 10, maxClients: 250 }, description: 'Linode oferece VPS e soluções de nuvem de baixo custo, ideal para pequenas empresas.' },
+            { name: 'Vultr', annualCost: 5500, capacity: { minClients: 5, maxClients: 200 }, description: 'Vultr é uma plataforma de nuvem econômica, voltada para pequenas empresas e desenvolvedores.' },
+            { name: 'Heroku', annualCost: 8500, capacity: { minClients: 30, maxClients: 500 }, description: 'Heroku é uma plataforma como serviço (PaaS) que facilita o desenvolvimento e implantação de apps.' },
+            { name: 'OVH Cloud', annualCost: 8000, capacity: { minClients: 50, maxClients: 600 }, description: 'OVH é conhecida por seus servidores dedicados e serviços em nuvem a preços competitivos.' },
+            { name: 'Tencent Cloud', annualCost: 10500, capacity: { minClients: 100, maxClients: 2200 }, description: 'Tencent Cloud oferece uma gama de serviços de computação em nuvem, popular na China.' }
+        ];
+
+        // Função para gerar recomendação
+        function generateRecommendation() {
+            const numClients = parseInt(document.getElementById('numClients').value);
+            const revenuePerClient = parseFloat(document.getElementById('revenuePerClient').value);
+            const totalRevenue = numClients * revenuePerClient; // Receita total
+
+            // Atribuir uma pontuação para cada provedor com base no custo e na capacidade
+            const scoredProviders = cloudProviders.map(provider => {
+                let score = 0;
+
+                // Critério de Custo: Quanto menor o custo relativo à receita, maior a pontuação
+                const costFactor = totalRevenue / provider.annualCost;
+                score += costFactor > 3 ? 10 : costFactor * 3; // Se o custo for muito menor que a receita, maior pontuação
+
+                // Critério de Capacidade: Penalizar se o número de clientes estiver fora da faixa ideal, mas de forma flexível
+                if (numClients < provider.capacity.minClients) {
+                    score -= (provider.capacity.minClients - numClients) * 0.1;
+                } else if (numClients > provider.capacity.maxClients) {
+                    score -= (numClients - provider.capacity.maxClients) * 0.1;
+                } else {
+                    score += 10;
+                }
+
+                // Novo critério: Otimizar o lucro anual
+                const annualProfit = totalRevenue - provider.annualCost;
+                const profitFactor = annualProfit > 0 ? annualProfit / totalRevenue * 10 : 0;
+                score += profitFactor;
+
+                return {
+                    ...provider,
+                    score,
+                    annualProfit
+                };
+            });
+
+            // Classificar os provedores por pontuação (do maior para o menor)
+            const bestProvider = scoredProviders.reduce((prev, curr) => 
+                prev.score > curr.score ? prev : curr
+            );
+
+            // Exibir a recomendação
+            if (bestProvider) {
+                document.getElementById('providerName').innerText = bestProvider.name;
+                document.getElementById('description').innerText = bestProvider.description;
+                document.getElementById('monthlyRevenue').innerText = (totalRevenue / 12).toFixed(2);
+                document.getElementById('annualRevenue').innerText = totalRevenue.toFixed(2);
+                document.getElementById('monthlyCost').innerText = (bestProvider.annualCost / 12).toFixed(2);
+                document.getElementById('annualProfit').innerText = (totalRevenue - bestProvider.annualCost).toFixed(2);
+                document.getElementById('recommendationCard').style.display = 'block';
+            } else {
+                alert('Nenhuma recomendação disponível.');
+            }
+        }
+
+        // Função para gerar gráfico de performance
+        function generatePerformance() {
+            const numClients = document.getElementById('numClientsPerformance').value;
+            const numTransactions = document.getElementById('numTransactions').value;
+            const avgSessionTime = document.getElementById('avgSessionTime').value;
+
+            const labels = ['Clientes', 'Acessos Diários', 'Tempo Médio de Sessão'];
+            const data = [numClients, numTransactions, avgSessionTime];
+
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+
+            // Verifica se já existe um gráfico e destrói antes de criar um novo
+            if (window.performanceChart instanceof Chart) {
+                window.performanceChart.destroy();
+            }
+
+            window.performanceChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance',
+                        data: data,
+                        backgroundColor: ['#4CAF50', '#2196F3', '#FF9800'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                }
+            });
+        }
+
+        // Função para alternar a exibição de tooltips
+        function toggleTooltip(id) {
+            const tooltip = document.getElementById(id);
+            tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Função para alternar entre conteúdos
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+                const contentId = item.getAttribute('data-content');
+                document.getElementById(contentId).classList.add('active');
+            });
+        });
+
+        // Funções para Gerenciamento de Usuários
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchUser').value;
+            console.log('Buscando usuários com termo:', searchTerm);
+            // Implementar lógica de busca aqui
+        }
+
+        function showAddUserForm(){
+    console.log('Abrindo formulário para adicionar novo usuário');
+    
+    // Checar se o formulário já está aberto
+    const existingForm = document.getElementById('addUserForm');
+    if(existingForm) {
+        // Se o formulário já existe, não fazer nada
+        return;
+    }
+
+    // Criar o elemento do formulário
+    const formHtml = `
+    <div id="addUserForm" class="form-overlay">
+        <div class="form-container">
+            <h2>Adicionar Novo Usuário</h2>
+            <div class="input-group">
+                <label for="userName">Nome:</label>
+                <input type="text" id="userName" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="userPhone">Telefone:</label>
+                <input type="tel" id="userPhone" placeholder="Digite o telefone">
+            </div>
+            <div class="input-group">
+                <label for="userCpf">CPF:</label>
+                <input type="text" id="userCpf" placeholder="Digite o CPF">
+            </div>
+            <div class="input-group">
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" placeholder="Digite o email">
+            </div>
+            <button onclick="addUser()">Salvar Usuário</button>
+            <button onclick="closeAddUserForm()" style="background-color: #e53e3e; margin-top: 10px;">Cancelar</button>
+        </div>
+    </div>
+    `;
+
+    // Inserir o formulário no corpo do documento
+    document.body.insertAdjacentHTML('beforeend', formHtml);
+}
+
+// Função para fechar o formulário de adição
+function closeAddUserForm() {
+    const formElement = document.getElementById('addUserForm');
+    if (formElement) {
+        formElement.remove(); // Remove o formulário da página
+    }
+}
+
+    </script>
+>>>>>>> 610f5ff (Implementação do formulário de adição de novos usuários)
 </body>
 </html>
