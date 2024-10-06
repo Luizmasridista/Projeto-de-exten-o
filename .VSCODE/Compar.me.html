@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparar.me - Recomendação Inteligente de Cloud</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -368,6 +369,7 @@
         </div>
     </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Lista com 12 provedores de cloud
@@ -502,24 +504,55 @@
             // Implementar lógica de busca aqui
         }
 
-        function showAddUserForm() {
-            console.log('Abrindo formulário para adicionar novo usuário');
-            // Implementar lógica para mostrar formulário de adição
-        }
+        function showAddUserForm(){
+    console.log('Abrindo formulário para adicionar novo usuário');
+    
+    // Checar se o formulário já está aberto
+    const existingForm = document.getElementById('addUserForm');
+    if(existingForm) {
+        // Se o formulário já existe, não fazer nada
+        return;
+    }
 
-        function editUser(userId) {
-            console.log('Editando usuário com ID:', userId);
-            // Implementar lógica de edição
-        }
+    // Criar o elemento do formulário
+    const formHtml = `
+    <div id="addUserForm" class="form-overlay">
+        <div class="form-container">
+            <h2>Adicionar Novo Usuário</h2>
+            <div class="input-group">
+                <label for="userName">Nome:</label>
+                <input type="text" id="userName" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="userPhone">Telefone:</label>
+                <input type="tel" id="userPhone" placeholder="Digite o telefone">
+            </div>
+            <div class="input-group">
+                <label for="userCpf">CPF:</label>
+                <input type="text" id="userCpf" placeholder="Digite o CPF">
+            </div>
+            <div class="input-group">
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" placeholder="Digite o email">
+            </div>
+            <button onclick="addUser()">Salvar Usuário</button>
+            <button onclick="closeAddUserForm()" style="background-color: #e53e3e; margin-top: 10px;">Cancelar</button>
+        </div>
+    </div>
+    `;
 
-        function deleteUser(userId) {
-            if (confirm('Tem certeza que deseja excluir este usuário?')) {
-                console.log('Excluindo usuário com ID:', userId);
-                // Implementar lógica de exclusão
-            }
-        }
+    // Inserir o formulário no corpo do documento
+    document.body.insertAdjacentHTML('beforeend', formHtml);
+}
+
+// Função para fechar o formulário de adição
+function closeAddUserForm() {
+    const formElement = document.getElementById('addUserForm');
+    if (formElement) {
+        formElement.remove(); // Remove o formulário da página
+    }
+}
+
     </script>
-    <script src="addUser.js"></script>
-
 </body>
 </html>
