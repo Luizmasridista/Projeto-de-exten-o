@@ -389,6 +389,13 @@
         ];
 
         // Função para gerar recomendação
+        function deleteUser(userId) {
+    if (confirm('Tem certeza que deseja excluir este usuário?')) {
+        console.log('Excluindo usuário com ID:', userId);
+        // Implementar lógica de exclusão
+    }
+}
+
         function generateRecommendation() {
             const numClients = parseInt(document.getElementById('numClients').value);
             const revenuePerClient = parseFloat(document.getElementById('revenuePerClient').value);
