@@ -6,6 +6,8 @@
     <title>Comparar.me - Recomendação Inteligente de Cloud</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <style>
         .content {
@@ -37,47 +39,55 @@
     </div>
 
     <!-- Conteúdo da Recomendação -->
-    <div id="home" class="content active">
-        <div class="container">
-            <h1>Recomendação Inteligente de Cloud</h1>
-            <div class="input-container">
-                <div class="input-group">
-                    <label for="numClients">Número de Clientes:</label>
-                    <input type="number" id="numClients" value="100">
-                </div>
-                <div class="input-group">
-                    <label for="revenuePerClient">Receita por Cliente (R$):</label>
-                    <input type="number" id="revenuePerClient" value="1000">
-                </div>
+    
+<div id="home" class="content active">
+    <div class="container">
+        <h1>Recomendação Inteligente de Cloud</h1>
+        <div class="input-container">
+            <div class="input-group">
+                <label for="numClients">Número de Clientes:</label>
+                <input type="number" id="numClients" value="100">
             </div>
-            <button onclick="generateRecommendation()">Gerar Recomendação</button>
-            <div id="recommendationCard" class="recommendation-card">
-                <div class="recommendation-header">
-                    <span class="provider-name" id="providerName"></span>
-                    <span id="confidenceScore"></span>
-                </div>
-                <div class="description" id="description"></div>
-                <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-label">Receita Mensal Estimada</div>
-                        <div class="metric-value" id="monthlyRevenue"></div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Receita Anual Estimada</div>
-                        <div class="metric-value" id="annualRevenue"></div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Custo Mensal Estimado</div>
-                        <div class="metric-value" id="monthlyCost"></div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Lucro Anual Estimado</div>
-                        <div class="metric-value" id="annualProfit"></div>
-                    </div>
-                </div>
+            <div class="input-group">
+                <label for="revenuePerClient">Receita por Cliente (R$):</label>
+                <input type="number" id="revenuePerClient" value="1000">
             </div>
         </div>
+        <button onclick="generateRecommendation()">Gerar Recomendação</button>
+        <div id="recommendationCard" class="recommendation-card">
+            <div class="recommendation-header">
+                <span class="provider-name" id="providerName"></span>
+                <span id="confidenceScore"></span>
+            </div>
+            <div class="description" id="description"></div>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-label">Receita Mensal Estimada</div>
+                    <div class="metric-value" id="monthlyRevenue"></div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Receita Anual Estimada</div>
+                    <div class="metric-value" id="annualRevenue"></div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Custo Mensal Estimado</div>
+                    <div class="metric-value" id="monthlyCost"></div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Lucro Anual Estimado</div>
+                    <div class="metric-value" id="annualProfit"></div>
+                </div>
+            </div>
+
+            <!-- Novo canvas para evolução de custos -->
+            <div class="chart-container">
+                <canvas id="costEvolutionChart"></canvas>
+            </div>
+
+        </div>
     </div>
+</div>
+
 
     <!-- Conteúdo da Simulação de Performance -->
     <div id="performance" class="content">
@@ -230,5 +240,6 @@
         });
     </script>
     <script src="addUser.js"></script>
+    <script src="RecomendaçãoClound.js"></script>
 </body>
 </html>
